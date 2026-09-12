@@ -4,6 +4,9 @@
 
 A modern, responsive productivity and analytics dashboard built with HTML, CSS, and JavaScript.
 
+## Overview
+NEXUS is a modern productivity and analytics dashboard designed to help users manage tasks, track productivity, and visualize their progress through a clean, responsive interface.
+
 ## 🚀 Features
 
 - 📊 Productivity analytics dashboard
