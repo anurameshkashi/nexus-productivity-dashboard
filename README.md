@@ -27,7 +27,13 @@ NEXUS is a modern productivity and analytics dashboard designed to help users ma
 - JavaScript
 - LocalStorage
 - SVG Charts
-
+- 
+## 🔮 Future Improvements
+- AI-powered productivity recommendations
+- User authentication
+- Cloud database integration
+- Advanced analytics and reports
+- Team collaboration features
 ## 📂 Project Structure
 
 ```text
