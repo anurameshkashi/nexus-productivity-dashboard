@@ -1,5 +1,7 @@
 # NEXUS — Productivity Dashboard
 
+🚀 **Live Demo:** [View NEXUS Live](https://anurameshkashi.github.io/nexus-productivity-dashboard/)
+
 A modern, responsive productivity and analytics dashboard built with HTML, CSS, and JavaScript.
 
 ## 🚀 Features
