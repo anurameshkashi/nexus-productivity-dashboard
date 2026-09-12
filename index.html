@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NEXUS — Productivity Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+      <div class="logo-icon">N</div>
+      <span>NEXUS</span>
+    </div>
+
+    <div class="profile-mini">
+      <div class="avatar">JD</div>
+      <div>
+        <strong>ANU KASHI</strong>
+        <small>Pro Member</small>
+      </div>
+    </div>
+
+    <nav class="navigation">
+
+      <p class="nav-title">WORKSPACE</p>
+
+      <button class="nav-item active" data-page="dashboard">
+        <span>⌂</span>
+        Dashboard
+      </button>
+
+      <button class="nav-item" data-page="tasks">
+        <span>✓</span>
+        Tasks
+        <b id="taskCountBadge">0</b>
+      </button>
+
+      <button class="nav-item" data-page="projects">
+        <span>▦</span>
+        Projects
+      </button>
+
+      <button class="nav-item" data-page="analytics">
+        <span>◔</span>
+        Analytics
+      </button>
+
+      <button class="nav-item" data-page="calendar">
+        <span>□</span>
+        Calendar
+      </button>
+
+      <p class="nav-title">PERSONAL</p>
+
+      <button class="nav-item" data-page="settings">
+        <span>⚙</span>
+        Settings
+      </button>
+
+    </nav>
+
+    <div class="upgrade-card">
+      <div class="upgrade-icon">✦</div>
+      <h3>Upgrade Workspace</h3>
+      <p>Unlock advanced productivity tools.</p>
+      <button id="upgradeBtn">Upgrade Now</button>
+    </div>
+
+    <button class="logout-btn" id="logoutBtn">
+      ↪ &nbsp; Log out
+    </button>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <button class="mobile-menu" id="mobileMenu">☰</button>
+
+      <div class="search-box">
+        <span>⌕</span>
+        <input
+          type="text"
+          id="globalSearch"
+          placeholder="Search tasks, projects..."
+        >
+        <kbd>Ctrl K</kbd>
+      </div>
+
+      <div class="top-actions">
+
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">
+          ☾
+        </button>
+
+        <button class="icon-btn notification-btn" id="notificationBtn">
+          ♢
+          <span class="notification-dot"></span>
+        </button>
+
+        <div class="top-user">
+          <div class="avatar small">JD</div>
+          <div>
+            <strong>ANU KASHI</strong>
+            <small>Administrator</small>
+          </div>
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="dashboard">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">FRIDAY, SEPTEMBER 11</span>
+            <h1>Good morning, ANU 👋</h1>
+            <p>Here's what's happening with your productivity today.</p>
+          </div>
+
+          <button class="primary-btn" id="dashboardNewTask">
+            + New Task
+          </button>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <span>Total Tasks</span>
+              <div class="stat-icon purple">✓</div>
+            </div>
+            <h2 id="totalTasks">0</h2>
+            <p class="positive">↑ 12% <span>vs last week</span></p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <span>Completed</span>
+              <div class="stat-icon green">✓</div>
+            </div>
+            <h2 id="completedTasks">0</h2>
+            <p class="positive">↑ 8% <span>vs last week</span></p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <span>Productivity</span>
+              <div class="stat-icon blue">◔</div>
+            </div>
+            <h2 id="productivity">0%</h2>
+            <p class="positive">↑ 5% <span>this week</span></p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <span>Focus Streak</span>
+              <div class="stat-icon orange">🔥</div>
+            </div>
+            <h2>7 days</h2>
+            <p class="neutral">Keep going!</p>
+          </div>
+
+        </div>
+
+        <!-- CHART -->
+        <div class="dashboard-grid">
+
+          <div class="card chart-card">
+
+            <div class="card-header">
+              <div>
+                <h2>Productivity Overview</h2>
+                <p>Your productivity score over the last 7 days.</p>
+              </div>
+
+              <select id="chartPeriod">
+                <option>Last 7 days</option>
+                <option>Last 30 days</option>
+                <option>This year</option>
+              </select>
+            </div>
+
+            <div class="chart">
+              <div class="y-axis">
+                <span>100</span>
+                <span>75</span>
+                <span>50</span>
+                <span>25</span>
+                <span>0</span>
+              </div>
+
+              <div class="chart-area">
+
+                <div class="grid-lines">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+
+                <svg viewBox="0 0 700 260" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-opacity=".35"/>
+                      <stop offset="100%" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+
+                  <path
+                    class="chart-fill"
+                    d="M0,190 C80,150 100,170 150,125 C210,70 245,130 300,100 C360,65 390,105 440,70 C500,35 530,80 580,50 C630,25 660,45 700,20 L700,260 L0,260 Z">
+                  </path>
+
+                  <path
+                    class="chart-line"
+                    d="M0,190 C80,150 100,170 150,125 C210,70 245,130 300,100 C360,65 390,105 440,70 C500,35 530,80 580,50 C630,25 660,45 700,20">
+                  </path>
+                </svg>
+
+                <div class="x-axis">
+                  <span>Mon</span>
+                  <span>Tue</span>
+                  <span>Wed</span>
+                  <span>Thu</span>
+                  <span>Fri</span>
+                  <span>Sat</span>
+                  <span>Sun</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- FOCUS SCORE -->
+          <div class="card focus-card">
+
+            <div class="card-header">
+              <div>
+                <h2>Focus Score</h2>
+                <p>Today's performance</p>
+              </div>
+            </div>
+
+            <div class="score-circle">
+              <div>
+                <strong>86</strong>
+                <span>/100</span>
+              </div>
+            </div>
+
+            <div class="score-label">
+              <strong>Excellent!</strong>
+              <span>You're performing above average.</span>
+            </div>
+
+            <div class="score-stats">
+              <div>
+                <strong>6.4h</strong>
+                <span>Focus time</span>
+              </div>
+
+              <div>
+                <strong>92%</strong>
+                <span>Completion</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- LOWER -->
+        <div class="dashboard-grid lower">
+
+          <div class="card">
+
+            <div class="card-header">
+              <div>
+                <h2>Today's Tasks</h2>
+                <p id="todayTaskText">Loading...</p>
+              </div>
+
+              <button class="text-btn" data-page="tasks">
+                View all →
+              </button>
+            </div>
+
+            <div class="task-list" id="todayTasks"></div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="card-header">
+              <div>
+                <h2>Active Projects</h2>
+                <p>Current workspace projects</p>
+              </div>
+
+              <button class="text-btn" data-page="projects">
+                View all →
+              </button>
+            </div>
+
+            <div class="mini-projects">
+
+              <div class="mini-project">
+                <div class="project-color purple-bg"></div>
+                <div class="project-info">
+                  <strong>Website Redesign</strong>
+                  <span>12 tasks</span>
+                  <div class="progress">
+                    <i style="width:72%"></i>
+                  </div>
+                </div>
+                <b>72%</b>
+              </div>
+
+              <div class="mini-project">
+                <div class="project-color blue-bg"></div>
+                <div class="project-info">
+                  <strong>Mobile Application</strong>
+                  <span>18 tasks</span>
+                  <div class="progress">
+                    <i style="width:48%"></i>
+                  </div>
+                </div>
+                <b>48%</b>
+              </div>
+
+              <div class="mini-project">
+                <div class="project-color orange-bg"></div>
+                <div class="project-info">
+                  <strong>Marketing Campaign</strong>
+                  <span>8 tasks</span>
+                  <div class="progress">
+                    <i style="width:35%"></i>
+                  </div>
+                </div>
+                <b>35%</b>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TASKS -->
+      <section class="page" id="tasks">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">WORKSPACE</span>
+            <h1>Task Management</h1>
+            <p>Organize your work and stay productive.</p>
+          </div>
+
+          <button class="primary-btn" id="newTaskBtn">
+            + New Task
+          </button>
+        </div>
+
+        <div class="task-toolbar">
+
+          <div class="filter-buttons">
+
+            <button class="filter active" data-filter="all">
+              All
+            </button>
+
+            <button class="filter" data-filter="todo">
+              To Do
+            </button>
+
+            <button class="filter" data-filter="progress">
+              In Progress
+            </button>
+
+            <button class="filter" data-filter="completed">
+              Completed
+            </button>
+
+          </div>
+
+          <select id="priorityFilter">
+            <option value="all">All priorities</option>
+            <option value="high">High priority</option>
+            <option value="medium">Medium priority</option>
+            <option value="low">Low priority</option>
+          </select>
+
+        </div>
+
+        <div class="kanban">
+
+          <div class="kanban-column" data-status="todo">
+            <div class="kanban-header">
+              <div>
+                <span class="status-dot todo-dot"></span>
+                <strong>TO DO</strong>
+              </div>
+              <span class="column-count" id="todoCount">0</span>
+            </div>
+
+            <div class="kanban-list" id="todoColumn"></div>
+          </div>
+
+
+          <div class="kanban-column" data-status="progress">
+            <div class="kanban-header">
+              <div>
+                <span class="status-dot progress-dot"></span>
+                <strong>IN PROGRESS</strong>
+              </div>
+              <span class="column-count" id="progressCount">0</span>
+            </div>
+
+            <div class="kanban-list" id="progressColumn"></div>
+          </div>
+
+
+          <div class="kanban-column" data-status="completed">
+            <div class="kanban-header">
+              <div>
+                <span class="status-dot completed-dot"></span>
+                <strong>COMPLETED</strong>
+              </div>
+              <span class="column-count" id="completedCount">0</span>
+            </div>
+
+            <div class="kanban-list" id="completedColumn"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PROJECTS -->
+      <section class="page" id="projects">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">WORKSPACE</span>
+            <h1>Projects</h1>
+            <p>Track your projects and milestones.</p>
+          </div>
+
+          <button class="primary-btn" id="newProjectBtn">
+            + New Project
+          </button>
+        </div>
+
+        <div class="project-grid">
+
+          <div class="project-card">
+
+            <div class="project-top">
+              <div class="project-logo purple-bg">W</div>
+              <button class="more-btn">•••</button>
+            </div>
+
+            <h2>Website Redesign</h2>
+            <p>Modernize the company website and improve user experience.</p>
+
+            <div class="project-members">
+              <div class="member">JD</div>
+              <div class="member">AK</div>
+              <div class="member">RS</div>
+              <span>+4</span>
+            </div>
+
+            <div class="project-progress">
+              <div>
+                <span>Progress</span>
+                <strong>72%</strong>
+              </div>
+
+              <div class="progress big">
+                <i style="width:72%"></i>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <span>Due Sep 18</span>
+              <span class="badge green">On track</span>
+            </div>
+
+          </div>
+
+
+          <div class="project-card">
+
+            <div class="project-top">
+              <div class="project-logo blue-bg">M</div>
+              <button class="more-btn">•••</button>
+            </div>
+
+            <h2>Mobile Application</h2>
+            <p>Build a powerful mobile experience for our customers.</p>
+
+            <div class="project-members">
+              <div class="member">JD</div>
+              <div class="member">MK</div>
+              <div class="member">TS</div>
+              <span>+5</span>
+            </div>
+
+            <div class="project-progress">
+              <div>
+                <span>Progress</span>
+                <strong>48%</strong>
+              </div>
+
+              <div class="progress big">
+                <i style="width:48%"></i>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <span>Due Oct 02</span>
+              <span class="badge blue">In progress</span>
+            </div>
+
+          </div>
+
+
+          <div class="project-card">
+
+            <div class="project-top">
+              <div class="project-logo orange-bg">M</div>
+              <button class="more-btn">•••</button>
+            </div>
+
+            <h2>Marketing Campaign</h2>
+            <p>Launch the new marketing campaign across multiple channels.</p>
+
+            <div class="project-members">
+              <div class="member">JD</div>
+              <div class="member">LP</div>
+              <span>+2</span>
+            </div>
+
+            <div class="project-progress">
+              <div>
+                <span>Progress</span>
+                <strong>35%</strong>
+              </div>
+
+              <div class="progress big">
+                <i style="width:35%"></i>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <span>Due Oct 14</span>
+              <span class="badge orange">Planning</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ANALYTICS -->
+      <section class="page" id="analytics">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">INSIGHTS</span>
+            <h1>Analytics</h1>
+            <p>Understand how you spend your time.</p>
+          </div>
+        </div>
+
+        <div class="analytics-stats">
+
+          <div class="analytics-card">
+            <span>Focus Hours</span>
+            <strong>34.6h</strong>
+            <small class="positive">↑ 14.2%</small>
+          </div>
+
+          <div class="analytics-card">
+            <span>Tasks Completed</span>
+            <strong id="analyticsCompleted">0</strong>
+            <small class="positive">↑ 8.4%</small>
+          </div>
+
+          <div class="analytics-card">
+            <span>Avg. Completion</span>
+            <strong>87%</strong>
+            <small class="positive">↑ 5.7%</small>
+          </div>
+
+          <div class="analytics-card">
+            <span>Deep Work</span>
+            <strong>18.2h</strong>
+            <small class="positive">↑ 21.1%</small>
+          </div>
+
+        </div>
+
+        <div class="card large-chart">
+
+          <div class="card-header">
+            <div>
+              <h2>Weekly Performance</h2>
+              <p>Tasks completed versus planned.</p>
+            </div>
+          </div>
+
+          <div class="bar-chart">
+
+            <div class="bar-group">
+              <i style="height:55%"></i>
+              <i style="height:75%"></i>
+              <span>Mon</span>
+            </div>
+
+            <div class="bar-group">
+              <i style="height:70%"></i>
+              <i style="height:82%"></i>
+              <span>Tue</span>
+            </div>
+
+            <div class="bar-group">
+              <i style="height:48%"></i>
+              <i style="height:65%"></i>
+              <span>Wed</span>
+            </div>
+
+            <div class="bar-group">
+              <i style="height:85%"></i>
+              <i style="height:92%"></i>
+              <span>Thu</span>
+            </div>
+
+            <div class="bar-group">
+              <i style="height:72%"></i>
+              <i style="height:88%"></i>
+              <span>Fri</span>
+            </div>
+
+            <div class="bar-group">
+              <i style="height:42%"></i>
+              <i style="height:60%"></i>
+              <span>Sat</span>
+            </div>
+
+            <div class="bar-group">
+              <i style="height:35%"></i>
+              <i style="height:52%"></i>
+              <span>Sun</span>
+            </div>
+
+          </div>
+
+          <div class="chart-legend">
+            <span><i></i> Planned</span>
+            <span><i></i> Completed</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CALENDAR -->
+      <section class="page" id="calendar">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">SCHEDULE</span>
+            <h1>Calendar</h1>
+            <p>Keep track of important dates and deadlines.</p>
+          </div>
+
+          <button class="primary-btn" id="calendarTaskBtn">
+            + Add Task
+          </button>
+        </div>
+
+        <div class="calendar-card card">
+
+          <div class="calendar-header">
+            <button id="prevMonth">‹</button>
+            <h2 id="calendarTitle"></h2>
+            <button id="nextMonth">›</button>
+          </div>
+
+          <div class="weekdays">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+          </div>
+
+          <div class="calendar-grid" id="calendarGrid"></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+      <section class="page" id="settings">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">PERSONAL</span>
+            <h1>Settings</h1>
+            <p>Manage your workspace preferences.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+
+          <div class="card settings-card">
+
+            <h2>Profile</h2>
+            <p>Update your personal information.</p>
+
+            <label>
+              Full Name
+              <input type="text" value="John Doe">
+            </label>
+
+            <label>
+              Email
+              <input type="email" value="john@example.com">
+            </label>
+
+            <label>
+              Role
+              <input type="text" value="Product Designer">
+            </label>
+
+            <button class="primary-btn" id="saveProfile">
+              Save Changes
+            </button>
+
+          </div>
+
+
+          <div class="card settings-card">
+
+            <h2>Preferences</h2>
+            <p>Customize your NEXUS experience.</p>
+
+            <div class="setting-row">
+              <div>
+                <strong>Email notifications</strong>
+                <span>Receive task reminders by email.</span>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div>
+                <strong>Daily summary</strong>
+                <span>Get a daily productivity summary.</span>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div>
+                <strong>Focus mode</strong>
+                <span>Reduce distractions while working.</span>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox">
+                <span></span>
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- TASK MODAL -->
+<div class="modal-overlay" id="taskModal">
+
+  <div class="modal">
+
+    <button class="modal-close" id="modalClose">×</button>
+
+    <h2 id="modalTitle">Create New Task</h2>
+    <p>Add a task to your workspace.</p>
+
+    <form id="taskForm">
+
+      <input type="hidden" id="taskId">
+
+      <label>
+        Task title
+        <input
+          type="text"
+          id="taskTitle"
+          placeholder="e.g. Design landing page"
+          required
+        >
+      </label>
+
+      <label>
+        Description
+        <textarea
+          id="taskDescription"
+          placeholder="What needs to be done?"
+        ></textarea>
+      </label>
+
+      <div class="form-row">
+
+        <label>
+          Priority
+          <select id="taskPriority">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </label>
+
+        <label>
+          Status
+          <select id="taskStatus">
+            <option value="todo">To Do</option>
+            <option value="progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </label>
+
+      </div>
+
+      <label>
+        Due date
+        <input type="date" id="taskDate">
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelModal">
+          Cancel
+        </button>
+
+        <button type="submit" class="primary-btn">
+          Save Task
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span>✓</span>
+  <div>
+    <strong id="toastTitle">Success</strong>
+    <p id="toastMessage">Action completed.</p>
+  </div>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
